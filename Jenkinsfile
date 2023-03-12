@@ -8,11 +8,15 @@ node {
             stage('Test') {
                 sh 'mvn test'
                 junit 'target/surefire-reports/*.xml'
+                input message: 'Lanjutkan ke tahap Deploy'
+               
+
             }
 
         if (currentBuild.currentResult == 'SUCCESS') {
-            stage('Deliver') {
+            stage('Deploy') {
                 sh './jenkins/scripts/deliver.sh'
+                sleep 60                               
             }    
         }
     }
