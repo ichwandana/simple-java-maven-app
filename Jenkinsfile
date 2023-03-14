@@ -8,8 +8,11 @@ node {
             stage('Test') {
                 sh 'mvn test'
                 junit 'target/surefire-reports/*.xml'
+            }
+            
+            stage('Manual Approval'){
                 input message: 'Lanjutkan ke tahap Deploy'
-               }
+            }
 
         if (currentBuild.currentResult == 'SUCCESS') {
             stage('Deploy') {
